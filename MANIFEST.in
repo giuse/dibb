@@ -1,0 +1,9 @@
+include pyproject.toml
+include *.md
+include LICENSE.txt
+
+# Using git-flow with git-flow-hooks for versioning
+include VERSION
+
+# Template config file for the Ray cluster
+include ray_cluster_config.yaml

@@ -1,0 +1,24 @@
+
+## Python
+*.pyc
+
+## Packaging
+.pypirc
+.cache
+build
+dist
+*.egg-info
+*.log
+*.patch
+*.diff
+pyproject.toml
+
+## Sublime
+*.sublime-project
+*.sublime-workspace
+
+## Data
+logs/
+exdata/
+ppdata/
+*.pydict

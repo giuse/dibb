@@ -1,0 +1,85 @@
+## Configuration to run a DiBB cluster
+
+
+### USAGE: ###
+# - Download this file to your local machine (make sure it can reach the cluster)
+# - Replace all placeholders below (they look `%like_this%`)
+# - Run `ray up ray_cluster_config.yaml` from your local machine
+# - The cluster is now set up and ready to use
+# - Shut down the cluster by calling `ray down`, again from your local machine
+##############
+
+
+user_config:
+    - &head_node_ip %ip_of_head_node%
+    - &worker_node_ips
+      - %ip_of_first_worker_node%
+      - %ip_of_second_worker_node%
+      - %etcetera%
+    - &ssh_user_name %username_to_log_on_ALL_machines%
+    - &ssh_private_key %path_to_ssh_key_for_ALL_machines%
+
+### ALSO REPLACE THE PLACEHOLDERS BELOW ###
+# %RAY_COMMAND% x4 => just `ray`, or maybe `python3 -m pipenv run ray`
+# %HEAD_NODE_IP% x1 => same content as the `%ip_of_head_node` you defined above
+###########################################
+
+# Commands to start the Ray cluster on the head node
+head_start_ray_commands:
+    - %RAY_COMMAND% stop
+    - >-
+        ulimit -c unlimited &&
+        %RAY_COMMAND% start -v --head
+        --port=6379
+        --resources='{"DedicatedMachine":1}'
+        --autoscaling-config=~/ray_bootstrap_config.yaml
+
+# Commands to start ray on the worker nodes
+worker_start_ray_commands:
+    - %RAY_COMMAND% stop
+    - >-
+        %RAY_COMMAND% start -v
+        --address=%HEAD_NODE_IP%:6379
+        --resources='{"DedicatedMachine":1}'
+
+
+# Feel free to customize the configuration below if you need:
+# https://github.com/ray-project/ray/blob/master/python/ray/autoscaler/local/example-full.yaml
+# Full reference: https://docs.ray.io/en/latest/cluster/config.html#examples
+
+cluster_name: dibb_cluster
+upscaling_speed: 1.0
+idle_timeout_minutes: 5
+provider:
+    type: local
+    head_ip: *head_node_ip
+    worker_ips: *worker_node_ips
+auth:
+    ssh_user: *ssh_user_name
+    ssh_private_key: *ssh_private_key
+
+file_mounts: {} # {"path_on_server" : "local_path",}
+cluster_synced_files: []
+file_mounts_sync_continuously: False
+rsync_exclude:
+    - "**/.git"
+    - "**/.git/**"
+rsync_filter:
+    - ".gitignore"
+
+### HOW TO PREPARE THE CLUSTER MACHINES ###
+# Ray's "setup commands" support automatic workers setup
+# Reference: https://docs.ray.io/en/latest/cluster/config.html#setup-commands
+# Check out the following: [initialization_commands, setup_commands, head_setup_commands, worker_setup_commands]
+#
+# Here is what we used, for a MAAS installation using Ubuntu + pipenv
+# (user `ubuntu` is pre-set with password-less `sudo` rights)
+# (we only ran this once, then commented out these lines for faster cluster initialization)
+#
+# setup_commands:
+#     - locale-gen en_US.UTF-8
+#     - dpkg-reconfigure --frontend noninteractive locales
+#     - apt update && apt install -y python3-pip build-essential python-dev python-setuptools
+#     - python3 -m pip install pipenv
+#     - cd <project_folder> && python3 -m pipenv sync
+###########################################
