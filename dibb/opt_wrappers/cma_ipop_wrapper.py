@@ -1,5 +1,6 @@
 # IMPORTANT: remember to register new wrappers in `__init__.py`
 
+# pip install cma -- https://pypi.org/project/cma
 from dibb.opt_wrappers.cma_wrapper import CmaWrapper
 
 # CMA-ES with IPOP

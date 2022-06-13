@@ -1,11 +1,8 @@
 # IMPORTANT: remember to register new wrappers in `__init__.py`
 
 import numpy as np
-try:
-    from lmmaes import Lmmaes
-except ImportError:
-    raise ImportError("Failed to import module `lmmaes`: " + \
-                      "https://pypi.org/project/lmmaes/")
+# pip install lmmmaes -- https://pypi.org/project/lmmaes
+from lmmaes import Lmmaes
 
 class LmmaesWrapper():
     """Wrapper to match LM-MA-ES to the DiBB interface """
