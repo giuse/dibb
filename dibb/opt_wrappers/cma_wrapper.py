@@ -1,7 +1,9 @@
 # IMPORTANT: remember to register new wrappers in `__init__.py`
 
 import numpy as np
+# pip install cma -- https://pypi.org/project/cma
 from cma import CMAEvolutionStrategy
+
 
 # Silence CMA warnings
 from sys import warnoptions
