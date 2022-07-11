@@ -1,13 +1,14 @@
 # DiBB
 
-_A framework for Distributed Black Box optimization_
+_Distributing Black-Box optimization_
 
 ## TL;DR
 
-DiBB generates and runs a partially-separable, distributed version of your favorite Black Box optimization algorithm -- including Evolutionary Algorithms such as Evolution Strategies for continuous optimization.
+DiBB generates and runs a Partially-Separable, parallelized and distributed version of your favorite Black Box optimization algorithm -- including Evolutionary Algorithms such as Evolution Strategies for continuous optimization.
 
 ```bash
-pip install dibb[cma]` # also installs CMA-ES: DiBB always needs an underlying BBO!
+# also installs CMA-ES, a solid choice for the underlying BBO
+pip install dibb[cma]`
 ```
 
 ```python
@@ -100,18 +101,19 @@ You can find the complete list of accepted parameters, their descriptions and de
 
 *Neuroevolution* means training neural networks using evolutionary computation algorithms. This is not a supervised learning technique, so you need no labels and no differentiability. In a RL control problem for example, you can train a neural network to use as the policy (*Direct Policy Search*), and entirely ditch value functions, Markov chains and the whole classic RL framework.
 
-First you will need to install the requirements: 1. an optimizer, 2. a neural network and 3. a RL control environment.
+First you will need to install the requirements (besides DiBB of course): 1. an optimizer, 2. a neural network and 3. a RL control environment.
 
 ```bash
-pip install dibb[cma] tinynet gym[classic_control]
+pip install "dibb[cma] tinynet gym[classic_control]"
 ```
+_(the quotes are here to escape the square parenthesis for `zsh`, which is currently the default shell on Mac)_
 
 Then copy+paste the example below to a `.py` file and run it.
 It should not take long, even on your local machine -- or you can launch a cluster of 3 machines first (using `ray_cluster_config.yaml`): the example below will run on the cluster with no further changes.
 
 ```python
-# INSTALL REQUIREMENTS FIRST: dibb (with optimizer), neural network, RL environment
-# pip install dibb[cma] tinynet gym[classic_control]
+# INSTALL REQUIREMENTS FIRST: dibb (with optimizer), neural network, RL environment:
+# $ pip install "dibb[cma] tinynet gym[classic_control]"
 
 import numpy as np
 import ray

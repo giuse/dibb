@@ -7,7 +7,6 @@ verify_ssl = true
 
 [packages]
 numpy = "*"
-psutil = "*"
 ray = {extras = ["debug"],version = "*"} # paper: ==1.8.0
 # ESs
 cma = "*"

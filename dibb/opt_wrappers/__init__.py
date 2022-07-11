@@ -2,7 +2,7 @@ import sys
 
 # Register names (and different spellings) for available BBO wrappers
 all_opt_names = {
-    'default' : ['cma', 'lmmaes', 'parameter_guessing'], # customizable
+    'default' : ['lmmaes', 'cma', 'parameter_guessing'], # customizable
     'cma' : ['cma-es', 'cma', 'cmaes'],
     'cma-ipop' : ['cma-es-ipop', 'cma-ipop', 'cmaes-ipop'],
     'lmmaes' : ['lmmaes', 'lm-ma-es'],
@@ -18,7 +18,7 @@ def load_opt(opt_name):
         for opt in all_opt_names['default']:
             try:
                 opt_cls = load_opt(opt)
-                print(f"Using {opt} as default optimizer")
+                print(f"Using `{opt}` as default optimizer")
                 return opt_cls
             except ImportError as exc:
                 pass # just try the next one
