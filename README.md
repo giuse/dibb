@@ -256,16 +256,19 @@ This work has been published at GECCO 2022, The 24th Genetic and Evolutionary Co
 
 ```bibtex
 @inproceedings{cuccu2022gecco,
+  author    = {Cuccu, Giuseppe and Rolshoven, Luca and Vorpe, Fabien and Cudr\'{e}-Mauroux, Philippe and Glasmachers, Tobias},
   title     = {{DiBB}: Distributing Black-Box Optimization},
-  author    = {Cuccu, Giuseppe and Rolshoven, Luca Sven and Vorpe, Fabien
-               and Cudr{\'e}-Mauroux, Philippe and Glasmachers, Tobias},
-  booktitle = {Proceedings of Genetic and Evolutionary Computation Conference
-              ({GECCO} '22), Boston, MA, USA},
-  publisher = {ACM, New York, NY, USA},
-  pages     = {11 pages},
   year      = {2022},
-  month     = {7},
+  isbn      = {9781450392372},
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
   doi       = {10.1145/3512290.3528764},
+  booktitle = {Proceedings of the Genetic and Evolutionary Computation Conference},
+  pages     = {341–349},
+  numpages  = {9},
+  keywords  = {parallelization, neuroevolution, evolution strategies, distributed algorithms, black-box optimization},
+  location  = {Boston, Massachusetts},
+  series    = {GECCO '22},
   url       = {https://exascale.info/assets/pdf/cuccu2022gecco.pdf}
 }
 ```
