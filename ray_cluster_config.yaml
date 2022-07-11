@@ -3,29 +3,19 @@
 
 ### USAGE: ###
 # - Download this file to your local machine (make sure it can reach the cluster)
-# - Replace all placeholders below (they look `%like_this%`)
+# - Replace all placeholders below (they look `%LIKE_THIS%`)
 # - Run `ray up ray_cluster_config.yaml` from your local machine
 # - The cluster is now set up and ready to use
 # - Shut down the cluster by calling `ray down`, again from your local machine
 ##############
 
-
-user_config:
-    - &head_node_ip %ip_of_head_node%
-    - &worker_node_ips
-      - %ip_of_first_worker_node%
-      - %ip_of_second_worker_node%
-      - %etcetera%
-    - &ssh_user_name %username_to_log_on_ALL_machines%
-    - &ssh_private_key %path_to_ssh_key_for_ALL_machines%
-
-### ALSO REPLACE THE PLACEHOLDERS BELOW ###
-# %RAY_COMMAND% x4 => just `ray`, or maybe `python3 -m pipenv run ray`
-# %HEAD_NODE_IP% x1 => same content as the `%ip_of_head_node` you defined above
-###########################################
+# For further customization:
+# https://github.com/ray-project/ray/blob/master/python/ray/autoscaler/local/example-full.yaml
+# Full reference: https://docs.ray.io/en/latest/cluster/config.html#examples
 
 # Commands to start the Ray cluster on the head node
 head_start_ray_commands:
+    # just `ray`, or maybe `cd exp_dir && python3 -m pipenv run ray`
     - %RAY_COMMAND% stop
     - >-
         ulimit -c unlimited &&
@@ -39,24 +29,23 @@ worker_start_ray_commands:
     - %RAY_COMMAND% stop
     - >-
         %RAY_COMMAND% start -v
-        --address=%HEAD_NODE_IP%:6379
+        --address=%IP_OF_HEAD_NODE%:6379
         --resources='{"DedicatedMachine":1}'
-
-
-# Feel free to customize the configuration below if you need:
-# https://github.com/ray-project/ray/blob/master/python/ray/autoscaler/local/example-full.yaml
-# Full reference: https://docs.ray.io/en/latest/cluster/config.html#examples
 
 cluster_name: dibb_cluster
 upscaling_speed: 1.0
 idle_timeout_minutes: 5
 provider:
     type: local
-    head_ip: *head_node_ip
-    worker_ips: *worker_node_ips
+    head_ip: %IP_OF_HEAD_NODE%
+    worker_ips:
+        - %IP_OF_WORKER_NODE_1%
+        - %IP_OF_WORKER_NODE_2%
+        - %IP_OF_WORKER_NODE_...%
+        - %IP_OF_WORKER_NODE_N%
 auth:
-    ssh_user: *ssh_user_name
-    ssh_private_key: *ssh_private_key
+    ssh_user: %USER_NAME_FOR_ALL_MACHINES%
+    ssh_private_key: %PATH_TO_LOCAL_KEY_TO_CONNECT_TO_ALL_MACHINES%
 
 file_mounts: {} # {"path_on_server" : "local_path",}
 cluster_synced_files: []
