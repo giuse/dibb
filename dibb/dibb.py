@@ -3,7 +3,7 @@
 
 import inspect
 import datetime
-import psutil
+from multiprocessing import cpu_count # only for local setup
 import numpy as np
 import ray
 
@@ -59,7 +59,7 @@ class DiBB:
             'logging_level': 40, # INFO=20, WARNING=30, ERROR=40
             'resources': {
                  # (Reserving one CPU) https://stackoverflow.com/a/55423170
-                'DedicatedMachine': len(psutil.Process().cpu_affinity()) - 1
+                'DedicatedMachine': cpu_count() - 1
             },
         }
     }

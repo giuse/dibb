@@ -103,15 +103,16 @@ You can find the complete list of accepted parameters, their descriptions and de
 First you will need to install the requirements: 1. an optimizer, 2. a neural network and 3. a RL control environment.
 
 ```bash
-pip install dibb[cma] tinynet gym[classic_control]
+pip install "dibb[cma] tinynet gym[classic_control]"
 ```
+_(the quotes are here to escape the square parenthesis for `zsh`, which is currently the default shell on Mac)_
 
 Then copy+paste the example below to a `.py` file and run it.
 It should not take long, even on your local machine -- or you can launch a cluster of 3 machines first (using `ray_cluster_config.yaml`): the example below will run on the cluster with no further changes.
 
 ```python
-# INSTALL REQUIREMENTS FIRST: dibb (with optimizer), neural network, RL environment
-# pip install dibb[cma] tinynet gym[classic_control]
+# INSTALL REQUIREMENTS FIRST: dibb (with optimizer), neural network, RL environment:
+# $ pip install "dibb[cma] tinynet gym[classic_control]"
 
 import numpy as np
 import ray
