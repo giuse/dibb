@@ -112,9 +112,9 @@ class DiBB:
 
         if self.cfg['block_sizes']:
             assert type(self.cfg['block_sizes']) is list and\
-                all(type(bs) is int for bs in block_sizes)
+                all(type(bs) is int for bs in self.cfg['block_sizes'])
             self.block_sizes = self.cfg['block_sizes']
-            self.nblocks = len(self.blocks)
+            self.nblocks = len(self.block_sizes)
         else:
             assert type(self.cfg['nblocks']) is int and self.cfg['nblocks'] > 0
             self.nblocks = self.cfg['nblocks']
